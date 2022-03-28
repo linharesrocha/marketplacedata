@@ -1,0 +1,9 @@
+1. Fazer download do Python https://www.python.org/downloads/
+2. Fazer download do Firefox https://www.mozilla.org/pt-BR/firefox/new/
+3. Baixar código https://github.com/linharesrocha/marketplacedata
+4. Extrair zip e alterar o nome da pasta de marketplacedata para "Py"
+5. Mover a pasta Py para o diretório C:
+6. Dentro de Py, mover o pesquisa.ps1 para a área de trabalho
+7. Abrir arquivo main.py como bloco de notas e substituir todos os diretorios de download: "C:/Users/FAT-01/Downloads"
+para "C:/Users/NOVOPCAQUI/Downloads"
+8. Abrir Powershell e acessar o diretorio Py, rodar o comando: pip install -r requirements.txt
