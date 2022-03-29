@@ -22,7 +22,13 @@ class Centauro:
         out = pyfiglet.figlet_format("CENTAURO", font="slant")
         print(out)
         print('-----------------------------------------------------')
-        print('LOADING 20%...')
+        print('CENTAURO        CARREGANDO...')
+        print('DAFITI          PRÓXIMO')
+        print('NETSHOES        NA FILA')
+        print('MERCADO LIVRE   NA FILA')
+        print('AMERICANAS      NA FILA')
+        print('AMAZON          NA FILA')
+
 
 
         # Final Url
@@ -89,7 +95,12 @@ class Dafiti:
         out = pyfiglet.figlet_format("DAFITI", font="slant")
         print(out)
         print('-----------------------------------------------------')
-        print('LOADING 40%...')
+        print('CENTAURO        FINALIZADO')
+        print('DAFITI          CARREGANDO...')
+        print('NETSHOES        NA FILA')
+        print('MERCADO LIVRE   NA FILA')
+        print('AMERICANAS      NA FILA')
+        print('AMAZON          NA FILA')
 
 
         # Final url
@@ -159,7 +170,12 @@ class Netshoes:
         out = pyfiglet.figlet_format("NETSHOES", font="slant")
         print(out)
         print('-----------------------------------------------------')
-        print('LOADING 60%...')
+        print('CENTAURO        FINALIZADO')
+        print('DAFITI          FINALIZADO')
+        print('NETSHOES        CARREGANDO...')
+        print('MERCADO LIVRE   NA FILA')
+        print('AMERICANAS      NA FILA')
+        print('AMAZON          NA FILA')
 
         # User
         url = "https://www.netshoes.com.br/busca?nsCat=Natural&q="+SEARCH
@@ -226,7 +242,12 @@ class MercadoLivre:
         out = pyfiglet.figlet_format("MERCADO LIVRE", font="slant")
         print(out)
         print('-----------------------------------------------------')
-        print('LOADING 80%...')
+        print('CENTAURO        FINALIZADO')
+        print('DAFITI          FINALIZADO')
+        print('NETSHOES        FINALIZADO')
+        print('MERCADO LIVRE   CARREGANDO...')
+        print('AMERICANAS      NA FILA')
+        print('AMAZON          NA FILA')
 
         # Final User
         url = "https://lista.mercadolivre.com.br/" + SEARCH
@@ -361,7 +382,12 @@ class Americanas:
         out = pyfiglet.figlet_format("AMERICANAS", font="slant")
         print(out)
         print('-----------------------------------------------------')
-        print('LOADING 85%...')
+        print('CENTAURO        FINALIZADO')
+        print('DAFITI          FINALIZADO')
+        print('NETSHOES        FINALIZADO')
+        print('MERCADO LIVRE   FINALIZADO')
+        print('AMERICANAS      CARREGANDO...')
+        print('AMAZON          NA FILA')
 
         # Final User
         url = "https://www.americanas.com.br/busca/" + SEARCH
@@ -425,7 +451,12 @@ class Amazon:
             out = pyfiglet.figlet_format("AMAZON", font="slant")
             print(out)
             print('-----------------------------------------------------')
-            print('LOADING 91%...')
+            print('CENTAURO        FINALIZADO')
+            print('DAFITI          FINALIZADO')
+            print('NETSHOES        FINALIZADO')
+            print('MERCADO LIVRE   FINALIZADO')
+            print('AMERICANAS      FINALIZADO')
+            print('AMAZON          CARREGANDO...')
 
             # Final User
             url = "https://www.amazon.com.br/s?k=" + SEARCH
@@ -461,11 +492,15 @@ class Amazon:
             # Pegando info de cada um
             for produto in produtos_quadrantes:
                 produto_nome = produto.find('span', {'class': 'a-size-base-plus a-color-base a-text-normal'}).getText()
-                produto_preco = produto.find('span', {'class': 'a-offscreen'}).getText()
                 produto_link = "https://www.amazon.com.br" + produto.find('a', href=True).get('href')
+                try:
+                    produto_preco = produto.find('span', {'class': 'a-offscreen'}).getText()
+                    dados_produtos.append([produto_nome, produto_preco, produto_link])
+                except AttributeError:
+                    dados_produtos.append([produto_nome, 'none', produto_link])
 
 
-                dados_produtos.append([produto_nome, produto_preco, produto_link])
+
 
             dados = pd.DataFrame(dados_produtos, columns=['nome', 'none', 'link'])
 
