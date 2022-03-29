@@ -58,6 +58,7 @@ class Centauro:
 
         # Criando a lista de produtos para ser armazenadas
         dados_produtos = []
+        dados_produtos.append([url])
 
 
         # Pegando div inteira do produto (img, nome, link, description...)
@@ -72,11 +73,11 @@ class Centauro:
             produto_link = url_centauro + produto.find('a', href=True).get('href')
 
             # Adicionando cada produto na lista criada
-            dados_produtos.append([produto_nome, produto_preco, produto_link])
+            dados_produtos.append(['',produto_nome, produto_preco, produto_link])
 
 
         # Convertendo os dados da lista para um Data Frame
-        dados = pd.DataFrame(dados_produtos, columns=['nome', 'preco', 'link'])
+        dados = pd.DataFrame(dados_produtos, columns=['url-de-pesquisa','nome', 'preco', 'link'])
 
         # Salvando o arquivo em xlsx
         dados.to_excel('C:/Users/FAT-01/Downloads/centauro.xlsx', index=False, encoding='utf-8')
@@ -131,6 +132,7 @@ class Dafiti:
 
         # Criando a lista de produtos para ser armazenadas
         dados_produtos = []
+        dados_produtos.append([url])
 
         # Pegando div inteira do produto (img, nome, link, description...)
         produtos_quadrantes = site.findAll(class_ = "product-box")
@@ -146,13 +148,13 @@ class Dafiti:
             # Validando se o preço promocional existe para armazenar
             if (produto_preco_promocional != None):
                 new_preco_promocional = produto_preco_promocional.getText()
-                dados_produtos.append([produto_nome, produto_preco_de, new_preco_promocional, produto_link])
+                dados_produtos.append(['',produto_nome, produto_preco_de, new_preco_promocional, produto_link])
             else:
-                dados_produtos.append([produto_nome, produto_preco_de, '',produto_link])
+                dados_produtos.append(['',produto_nome, produto_preco_de, '',produto_link])
 
 
         # Convertendo os dados da lista para um Data Frame
-        dados = pd.DataFrame(dados_produtos, columns=['nome', 'preco-normal','preco-promocional', 'link'])
+        dados = pd.DataFrame(dados_produtos, columns=['url-de-pesquisa','nome', 'preco-normal','preco-promocional', 'link'])
 
         # Salvando o arquivo em xlsx
         dados.to_excel('C:/Users/FAT-01/Downloads/dafiti.xlsx', index=False, encoding='utf-8')
@@ -202,6 +204,7 @@ class Netshoes:
 
         # Criando a lista de produtos para ser armazenadas
         dados_produtos = []
+        dados_produtos.append([url])
 
         # Pegando div inteira do produto (img, nome, link, description...)
         produtos_quadrantes = site.findAll(class_ = "item-desktop--3")
@@ -213,18 +216,14 @@ class Netshoes:
             produto_link = produto_link_pre[2:]
             try:
                 produto_preco = produto.find('span', {'data-price': 'price'}).getText()
-                dados_produtos.append([produto_nome, produto_preco, produto_link])
+                dados_produtos.append(['',produto_nome, produto_preco, produto_link])
             except AttributeError:
-                dados_produtos.append([produto_nome, 'none',produto_link])
+                dados_produtos.append(['',produto_nome, 'none',produto_link])
                 print('Dev Error: Linha 205')
 
 
-
-            dados_produtos.append([produto_nome, produto_preco, produto_link])
-
-
         # Convertendo os dados da lista para um Data Frame
-        dados = pd.DataFrame(dados_produtos, columns=['nome', 'produto_preco', 'link'])
+        dados = pd.DataFrame(dados_produtos, columns=['url-de-pesquisa','nome', 'produto_preco', 'link'])
 
         # Salvando o arquivo em xlsx
         dados.to_excel('C:/Users/FAT-01/Downloads/netshoes.xlsx', index=False, encoding='utf-8')
@@ -275,6 +274,7 @@ class MercadoLivre:
 
         # Criando a lista de produtos para ser armazenadas
         dados_produtos = []
+        dados_produtos.append([url])
 
         # Pegando div inteira do produto (img, nome, link, description...)
         produtos_quadrantes = site.findAll(class_="ui-search-layout__item")
@@ -289,14 +289,14 @@ class MercadoLivre:
                 produto_preco = produto.findAll('span', attrs={'class': 'price-tag-amount'})[0].getText()
                 produto_preco2 = produto.findAll('span', attrs={'class': 'price-tag-amount'})[1].getText()
                 produto_preco3 = produto.findAll('span', attrs={'class': 'price-tag-amount'})[2].getText()
-                dados_produtos.append([produto_nome, produto_preco2, produto_link])
+                dados_produtos.append(['',produto_nome, produto_preco2, produto_link])
             except IndexError:
                 produto_preco = produto.findAll('span', attrs={'class': 'price-tag-amount'})[0].getText()
                 produto_preco2 = produto.findAll('span', attrs={'class': 'price-tag-amount'})[1].getText()
-                dados_produtos.append([produto_nome, produto_preco, produto_link])
+                dados_produtos.append(['',produto_nome, produto_preco, produto_link])
 
         # Convertendo os dados da lista para um Data Frame
-        dados = pd.DataFrame(dados_produtos, columns=['nome', 'produto_preco', 'link'])
+        dados = pd.DataFrame(dados_produtos, columns=['url-de-pesquisa','nome', 'produto_preco', 'link'])
 
 
         # Salvando o arquivo em xlsx
@@ -416,6 +416,7 @@ class Americanas:
 
         # Criando a lista de produtos para ser armazenadas
         dados_produtos = []
+        dados_produtos.append([url])
 
         # Pegando div inteira do produto (img, nome, link, description...)
         produtos_quadrantes = site.findAll(class_="cJnBan")
@@ -426,13 +427,13 @@ class Americanas:
             produto_link = "https://www.americanas.com.br" + produto.find('a', href=True).get('href')
             try:
                 produto_preco = produto.find('span', {'class': 'liXDNM'}).getText()
-                dados_produtos.append([produto_nome, produto_preco, produto_link])
+                dados_produtos.append(['',produto_nome, produto_preco, produto_link])
             except:
                 print('Dev Error: Erro ao achar o preço')
-                dados_produtos.append([produto_nome, 'none', produto_link])
+                dados_produtos.append(['',produto_nome, 'none', produto_link])
 
 
-        dados = pd.DataFrame(dados_produtos, columns=['nome', 'none', 'link'])
+        dados = pd.DataFrame(dados_produtos, columns=['url-de-pesquisa','nome', 'none', 'link'])
 
         # Salvando o arquivo em xlsx
         dados.to_excel('C:/Users/FAT-01/Downloads/americanas.xlsx', index=False, encoding='utf-8')
@@ -485,6 +486,7 @@ class Amazon:
 
             # Criando a lista de produtos para ser armazenadas
             dados_produtos = []
+            dados_produtos.append([url])
 
             # Pegando div inteira do produto (img, nome, link, description...)
             produtos_quadrantes = site.findAll('div', {'data-component-type': 's-search-result'})
@@ -495,14 +497,14 @@ class Amazon:
                 produto_link = "https://www.amazon.com.br" + produto.find('a', href=True).get('href')
                 try:
                     produto_preco = produto.find('span', {'class': 'a-offscreen'}).getText()
-                    dados_produtos.append([produto_nome, produto_preco, produto_link])
+                    dados_produtos.append(['',produto_nome, produto_preco, produto_link])
                 except AttributeError:
-                    dados_produtos.append([produto_nome, 'none', produto_link])
+                    dados_produtos.append(['',produto_nome, 'none', produto_link])
 
 
 
 
-            dados = pd.DataFrame(dados_produtos, columns=['nome', 'none', 'link'])
+            dados = pd.DataFrame(dados_produtos, columns=['url-de-pesquisa','nome', 'none', 'link'])
 
             # Salvando o arquivo em xlsx
             dados.to_excel('C:/Users/FAT-01/Downloads/amazon.xlsx', index=False, encoding='utf-8')
