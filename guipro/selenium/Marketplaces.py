@@ -414,3 +414,69 @@ class Americanas:
 
         # Quit navegado
         navegador.quit()
+
+class Amazon:
+        @staticmethod
+        def iniciar():
+            # Limpando tela
+            clear = lambda: os.system('cls')
+            clear()
+            print('-----------------------------------------------------')
+            out = pyfiglet.figlet_format("AMAZON", font="slant")
+            print(out)
+            print('-----------------------------------------------------')
+            print('LOADING 91%...')
+
+            # Final User
+            url = "https://www.amazon.com.br/s?k=" + SEARCH
+
+            # Settings
+            option = Options()
+            option.headless = True
+            navegador = webdriver.Firefox(options=option)
+
+            # Init
+            navegador.get(url)
+            sleep(2)
+
+            # Descendo a pagina para carregar todos os produtos
+            body = navegador.find_element(By.CSS_SELECTOR, "body")
+            for i in range(1, 3):
+                body.send_keys(Keys.PAGE_DOWN)
+                sleep(2)
+            for i in range(1, 10):
+                body.send_keys(Keys.PAGE_DOWN)
+                sleep(2)
+
+            # Save page
+            page_content = navegador.page_source
+            site = BeautifulSoup(page_content, 'html.parser')
+
+            # Criando a lista de produtos para ser armazenadas
+            dados_produtos = []
+
+            # Pegando div inteira do produto (img, nome, link, description...)
+            produtos_quadrantes = site.findAll('div', {'data-component-type': 's-search-result'})
+
+            # Pegando info de cada um
+            for produto in produtos_quadrantes:
+                produto_nome = produto.find('span', {'class': 'a-size-base-plus a-color-base a-text-normal'}).getText()
+                produto_preco = produto.find('span', {'class': 'a-offscreen'}).getText()
+                produto_link = "https://www.amazon.com.br" + produto.find('a', href=True).get('href')
+
+                print(produto_nome)
+                print(produto_preco)
+                print(produto_link)
+
+
+
+
+                dados_produtos.append([produto_nome, produto_preco, produto_link])
+
+            dados = pd.DataFrame(dados_produtos, columns=['nome', 'none', 'link'])
+
+            # Salvando o arquivo em xlsx
+            #dados.to_excel('C:/Users/FAT-01/Downloads/amazon.xlsx', index=False, encoding='utf-8')
+
+            # Quit navegado
+            navegador.quit()

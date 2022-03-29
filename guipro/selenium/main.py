@@ -1,8 +1,9 @@
 from Marketplaces import *
 
-Centauro.iniciar()
-Dafiti.iniciar()
-Netshoes.iniciar()
-MercadoLivre.iniciar()
+#Centauro.iniciar()
+#Dafiti.iniciar()
+#Netshoes.iniciar()
+#MercadoLivre.iniciar()
 #Shopee.iniciar()
-Americanas.iniciar()
+#Americanas.iniciar()
+Amazon.iniciar()
