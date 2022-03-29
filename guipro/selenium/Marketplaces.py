@@ -464,19 +464,13 @@ class Amazon:
                 produto_preco = produto.find('span', {'class': 'a-offscreen'}).getText()
                 produto_link = "https://www.amazon.com.br" + produto.find('a', href=True).get('href')
 
-                print(produto_nome)
-                print(produto_preco)
-                print(produto_link)
-
-
-
 
                 dados_produtos.append([produto_nome, produto_preco, produto_link])
 
             dados = pd.DataFrame(dados_produtos, columns=['nome', 'none', 'link'])
 
             # Salvando o arquivo em xlsx
-            #dados.to_excel('C:/Users/FAT-01/Downloads/amazon.xlsx', index=False, encoding='utf-8')
+            dados.to_excel('C:/Users/FAT-01/Downloads/amazon.xlsx', index=False, encoding='utf-8')
 
             # Quit navegado
             navegador.quit()
